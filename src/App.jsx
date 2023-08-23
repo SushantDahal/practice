@@ -1,11 +1,18 @@
 import React, { useState } from "react";
 
 function App() {
-  const [headingText, setHeading] = useState("Hello");
+  const [headingText, setHeading] = useState("");
   const [isMouseOver, isMouseOut] = useState(false);
 
-  function handle() {
-    setHeading("Submitted");
+  const [name, setName] = useState("");
+  function handleChange(event) {
+    console.log(event.target.value);
+    setName(event.target.value);
+  }
+
+  function handle(event) {
+    setHeading(name);
+    event.preventDefault();
   }
 
   function colorHandle() {
@@ -17,16 +24,21 @@ function App() {
   return (
     <>
       <div className="container">
-        <h1>{headingText}</h1>
-        <input type="text" placeholder="What's Your Name?" />
-        <button
-          style={{ backgroundColor: isMouseOver ? "black" : "white" }}
-          onClick={handle}
-          onMouseOver={colorHandle}
-          onMouseOut={Mouseout}
-        >
-          Submit
-        </button>
+        <form onSubmit={handle}>
+          <h1>Hello {headingText}</h1>
+          <input
+            type="text"
+            placeholder="What's Your Name?"
+            onChange={handleChange}
+          />
+          <button
+            style={{ backgroundColor: isMouseOver ? "black" : "white" }}
+            onMouseOver={colorHandle}
+            onMouseOut={Mouseout}
+          >
+            Submit
+          </button>
+        </form>
       </div>
     </>
   );
